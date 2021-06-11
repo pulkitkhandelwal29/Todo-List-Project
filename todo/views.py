@@ -5,6 +5,8 @@ from .forms import TodoForm
 #Importing Todo from models to access all the todos created
 from .models import Todo
 
+from django.utils import timezone #Importing timezone to set datecompleted to NULL (fix the time as the curent time)
+
 # Create your views here.
 def home(request):
     return render(request,'todo/index.html')
@@ -33,7 +35,7 @@ def createtodo(request):
 
 #Viewing todo based on Primary key
 def viewtodo(request,todo_pk):
-    todo = get_object_or_404(Todo, pk=todo_pk, user=request.user) #accessing those todos only created by the specific user(prevent from someone just try to access todos by changing ID above in URL) 
+    todo = get_object_or_404(Todo, pk=todo_pk, user=request.user) #accessing those todos only created by the specific user(prevent from someone just try to access todos by changing ID above in URL)
     if request.method == 'GET':
         form = TodoForm(instance=todo) #Calling the form with details already in it using instance of above todo
         return render(request,'todo/viewtodo.html',{'todo':todo,'form':form})
@@ -42,4 +44,19 @@ def viewtodo(request,todo_pk):
         form = TodoForm(request.POST,instance=todo) #Referring the instance of todo only that has saved info
         #Directly saving as no need to define which user
         form.save()
+        return redirect('currenttodos')
+
+
+def completetodo(request,todo_pk):
+    todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
+    if request.method == 'POST':
+        #Setting datecompleted field to the current time leading to becoming it NULl
+        todo.datecompleted = timezone.now()
+        todo.save()
+        return redirect('currenttodos')
+
+def deletetodo(request,todo_pk):
+    todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
+    if request.method == 'POST':
+        todo.delete()
         return redirect('currenttodos')
