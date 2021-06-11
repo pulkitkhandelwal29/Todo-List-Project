@@ -31,7 +31,15 @@ def createtodo(request):
         #After saving todos, redirecting to the currenttodo webpage, where it can see its todos
         return redirect('currenttodos')
 
-#Viewing todo based on Primary key 
+#Viewing todo based on Primary key
 def viewtodo(request,todo_pk):
-    todo = get_object_or_404(Todo,pk=todo_pk)
-    return render(request,'todo/viewtodo.html',{'todo':todo})
+    todo = get_object_or_404(Todo, pk=todo_pk, user=request.user) #accessing those todos only created by the specific user(prevent from someone just try to access todos by changing ID above in URL) 
+    if request.method == 'GET':
+        form = TodoForm(instance=todo) #Calling the form with details already in it using instance of above todo
+        return render(request,'todo/viewtodo.html',{'todo':todo,'form':form})
+    else:
+        #Save the updated details
+        form = TodoForm(request.POST,instance=todo) #Referring the instance of todo only that has saved info
+        #Directly saving as no need to define which user
+        form.save()
+        return redirect('currenttodos')
