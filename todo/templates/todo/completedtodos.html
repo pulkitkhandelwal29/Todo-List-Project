@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    You are seeing the completed todos
+    <ul>
+      {% for todo in todos %}
+      <li>
+        <a href= "{% url 'viewtodo' todo.id %}"> <!--Referencing to the viewtodo page with primary key ID-->
+        {% if todo.important %}
+         <b>{{ todo.title }}</b>
+         {% else %}
+         {{ todo.title }}
+         {% endif %}
+         <br>
+         {% if todo.memo %}
+         {{ todo.memo }}
+         {% endif %}
+         <br>
+         {{ todo.datecompleted|date:'M j Y H:i' }}
+       </li>
+     </a>
+       <br>
+      {% endfor %}
+    {% endblock %}
+  </body>
+</html>

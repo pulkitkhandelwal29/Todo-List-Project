@@ -8,4 +8,5 @@ urlpatterns = [
     path('list/<int:todo_pk>',views.viewtodo,name='viewtodo'), #Listing the todo based on primary key (ID)
     path('list/<int:todo_pk>/complete',views.completetodo,name='completetodo'),
     path('list/<int:todo_pk>/delete',views.deletetodo,name='deletetodo'),
+    path('completed',views.completedtodos,name='completedtodos'),
 ]

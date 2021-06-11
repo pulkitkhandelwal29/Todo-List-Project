@@ -7,16 +7,20 @@ from .models import Todo
 
 from django.utils import timezone #Importing timezone to set datecompleted to NULL (fix the time as the curent time)
 
+#Does not allow user to access page until user is logged in
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def home(request):
     return render(request,'todo/index.html')
 
+@login_required
 def currenttodos(request):
     #Accessing all todos for specific user that are in database
     #If the user clicks on completed that todo, it should not appear there (this is how it is a filter)
     todos = Todo.objects.filter(user = request.user , datecompleted__isnull = True)
     return render(request,'todo/currenttodos.html',{'todos':todos})
 
+@login_required
 def createtodo(request):
     #If createtodo link is opened, it's a GET request
     if request.method == 'GET':
@@ -34,6 +38,7 @@ def createtodo(request):
         return redirect('currenttodos')
 
 #Viewing todo based on Primary key
+@login_required
 def viewtodo(request,todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user) #accessing those todos only created by the specific user(prevent from someone just try to access todos by changing ID above in URL)
     if request.method == 'GET':
@@ -46,7 +51,7 @@ def viewtodo(request,todo_pk):
         form.save()
         return redirect('currenttodos')
 
-
+@login_required
 def completetodo(request,todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'POST':
@@ -55,8 +60,17 @@ def completetodo(request,todo_pk):
         todo.save()
         return redirect('currenttodos')
 
+@login_required
 def deletetodo(request,todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'POST':
         todo.delete()
         return redirect('currenttodos')
+
+@login_required
+def completedtodos(request):
+    #Accessing all todos for specific user that are in database
+    #If the user wants to see completed todo, it should appear there (this is how it is a filter)
+    #Ordering in descending order (latest to not so latest) (using - sign)
+    todos = Todo.objects.filter(user = request.user , datecompleted__isnull = False).order_by('-datecompleted')
+    return render(request,'todo/completedtodos.html',{'todos':todos})

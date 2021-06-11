@@ -12,6 +12,8 @@ from django.contrib.auth import login,logout,authenticate
 #Integrity lets you uniquely identify column in database, if not uniquely identify IntegrityError is returned
 from django.db import IntegrityError
 
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 def signupuser(request):
@@ -42,6 +44,7 @@ def signupuser(request):
             return render(request,'accounts/signup.html',{'form':UserCreationForm(),'error':'Passwords didn\'t match'})
 
 
+@login_required
 def logoutuser(request):
     if request.method == 'POST':
         #Logouts the user
