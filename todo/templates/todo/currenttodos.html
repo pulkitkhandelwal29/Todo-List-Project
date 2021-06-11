@@ -9,6 +9,20 @@
 
     {% block content %}
     You are seeing the current todos
+    <ul>
+      {% for todo in todos %}
+      <li>{% if todo.important %}
+         <b>{{ todo.title }}</b>
+         {% else %}
+         {{ todo.title }}
+         {% endif %}
+         <br>
+         {% if todo.memo %}
+         {{ todo.memo }}
+         {% endif %}
+       </li>
+       <br>
+      {% endfor %}
     {% endblock %}
   </body>
 </html>

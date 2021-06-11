@@ -2,12 +2,18 @@ from django.shortcuts import render,redirect
 
 from .forms import TodoForm
 
+#Importing Todo from models to access all the todos created
+from .models import Todo
+
 # Create your views here.
 def home(request):
     return render(request,'todo/index.html')
 
 def currenttodos(request):
-    return render(request,'todo/currenttodos.html')
+    #Accessing all todos for specific user that are in database
+    #If the user clicks on completed that todo, it should not appear there (this is how it is a filter)
+    todos = Todo.objects.filter(user = request.user , datecompleted__isnull = True)
+    return render(request,'todo/currenttodos.html',{'todos':todos})
 
 def createtodo(request):
     #If createtodo link is opened, it's a GET request
