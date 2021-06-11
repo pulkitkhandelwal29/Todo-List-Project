@@ -5,15 +5,15 @@ from django.contrib.auth.forms import UserCreationForm
 
 #Create user
 from django.contrib.auth.models import User
-#Helps to login
-from django.contrib.auth import login
+#Helps to login,Logout
+from django.contrib.auth import login,logout
 
 #Integrity lets you uniquely identify column in database, if not uniquely identify IntegrityError is returned
 from django.db import IntegrityError
 
 
 # Create your views here.
-def signup(request):
+def signupuser(request):
     #If signup link is opened, it's a GET request
     if request.method == 'GET':
         return render(request,'accounts/signup.html',{'form':UserCreationForm()})
@@ -39,3 +39,11 @@ def signup(request):
         else:
             #If passwords does not match (return the same page again with additional details)
             return render(request,'accounts/signup.html',{'form':UserCreationForm(),'error':'Passwords didn\'t match'})
+
+
+def logoutuser(request):
+    if request.method == 'POST':
+        #Logouts the user
+        logout(request)
+        #returning to specific webpage
+        return redirect('home')
