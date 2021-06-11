@@ -3,6 +3,6 @@ from django.urls import path,include
 from . import views
 
 urlpatterns = [
-    #Authentication
     path('current',views.currenttodos,name='currenttodos'),
+    path('create',views.createtodo,name='createtodo'),
 ]

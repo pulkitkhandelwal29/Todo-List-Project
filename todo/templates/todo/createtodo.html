@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <h1>Create TODO</h1>
+    <!--Prints the error of passwords didn't match-->
+    <h2> {{ error }} </h2>
+    <form method="POST">
+      {% csrf_token %}
+      <!--Accessing form from views.py file (as_p is creating form in paragraph tag)-->
+    {{ form.as_p }}
+    <button type="submit">Create</button>
+  </form>
+    {% endblock %}
+  </body>
+</html>
