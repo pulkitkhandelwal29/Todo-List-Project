@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 
 from .forms import TodoForm
 
@@ -30,3 +30,8 @@ def createtodo(request):
         newtodo.save()
         #After saving todos, redirecting to the currenttodo webpage, where it can see its todos
         return redirect('currenttodos')
+
+#Viewing todo based on Primary key 
+def viewtodo(request,todo_pk):
+    todo = get_object_or_404(Todo,pk=todo_pk)
+    return render(request,'todo/viewtodo.html',{'todo':todo})

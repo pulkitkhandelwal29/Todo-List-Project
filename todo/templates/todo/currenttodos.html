@@ -11,7 +11,9 @@
     You are seeing the current todos
     <ul>
       {% for todo in todos %}
-      <li>{% if todo.important %}
+      <li>
+        <a href= "{% url 'viewtodo' todo.id %}"> <!--Referencing to the viewtodo page with primary key ID-->
+        {% if todo.important %}
          <b>{{ todo.title }}</b>
          {% else %}
          {{ todo.title }}
@@ -21,6 +23,7 @@
          {{ todo.memo }}
          {% endif %}
        </li>
+     </a>
        <br>
       {% endfor %}
     {% endblock %}
