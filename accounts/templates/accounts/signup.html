@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <h1>Signup</h1>
+    <!--Prints the error of passwords didn't match--> 
+    <h2> {{ error }} </h2>
+    <form method="POST">
+      {% csrf_token %}
+      <!--Accessing form from views.py file (as_p is creating form in paragraph tag)-->
+    {{ form.as_p }}
+    <button type="submit">Sign Up</button>
+  </form>
+  </body>
+</html>
