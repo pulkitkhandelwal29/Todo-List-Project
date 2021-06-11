@@ -56,7 +56,7 @@ ROOT_URLCONF = 'todo_list.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['todo_list/templates'], #Accessing base.html in all apps 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

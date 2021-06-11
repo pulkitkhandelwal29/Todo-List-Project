@@ -1,0 +1,21 @@
+<!--Creating base.html that will be extended to all templates-->
+
+<!--Checking if user is logged in, show them logout button-->
+{% if user.is_authenticated %}
+
+Logged in as  {{ user.username }}
+<br>
+<a href="#">Logout</a>
+
+<!--If not logged in, show them Sign Up button and Login button-->
+{% else %}
+
+<a href="#">Sign Up</a>
+<a href="#">Login</a>
+
+{% endif %}
+<br><br>
+
+
+{% block content %}
+{% endblock %}
