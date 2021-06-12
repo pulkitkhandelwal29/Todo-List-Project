@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 
+#Forms created using django, importing the class name
 from .forms import TodoForm
 
 #Importing Todo from models to access all the todos created

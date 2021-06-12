@@ -1,6 +1,7 @@
 #Creating form
 from django.forms import ModelForm
 
+#Importing the models file created (that has forms)
 from .models import Todo
 
 class TodoForm(ModelForm):
@@ -9,3 +10,5 @@ class TodoForm(ModelForm):
         model = Todo
         #Creating all the form fields that we want from models (these fields are defined in models.py file)
         fields = ['title','memo','important']
+
+#After this automatically forms get created with these fields

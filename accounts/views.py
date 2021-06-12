@@ -12,6 +12,7 @@ from django.contrib.auth import login,logout,authenticate
 #Integrity lets you uniquely identify column in database, if not uniquely identify IntegrityError is returned
 from django.db import IntegrityError
 
+#Makes login required otherwise show login page (LOGIN_URL in settings.py file)
 from django.contrib.auth.decorators import login_required
 
 

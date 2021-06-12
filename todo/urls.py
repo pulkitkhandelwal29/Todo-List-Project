@@ -11,3 +11,5 @@ urlpatterns = [
     path('completed',views.completedtodos,name='completedtodos'),
     path('list/<int:todo_pk>/removecompletedtodo',views.removecompletedtodo,name='removecompletedtodo'),
 ]
+
+#Every link will come like 127.0.0.1/todo/current (etc.)

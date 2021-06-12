@@ -25,7 +25,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <!--Checking if user is logged in, show them logout button-->
+        <!--Checking if user is logged in, show them Current,Completed,Create button-->
         {% if user.is_authenticated %}
         <ul class="navbar-nav">
 
@@ -42,6 +42,7 @@
         </ul>
         {% endif %}
         <ul class="navbar-nav ms-auto">
+          <!--Checking if user is logged in, show them Logout button-->
           {% if user.is_authenticated %}
           <li class="nav-item">
             <b><text class='nav-link'>Welcome {{ user|capfirst }}</text></b>
