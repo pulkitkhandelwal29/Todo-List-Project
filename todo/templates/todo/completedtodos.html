@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    {% extends 'base.html' %}
 
-    {% block content %}
-    You are seeing the completed todos
-    <ul>
-      {% for todo in todos %}
-      <li>
-        <a href= "{% url 'viewtodo' todo.id %}"> <!--Referencing to the viewtodo page with primary key ID-->
-        {% if todo.important %}
-         <b>{{ todo.title }}</b>
-         {% else %}
-         {{ todo.title }}
-         {% endif %}
-         <br>
-         {% if todo.memo %}
-         {{ todo.memo }}
-         {% endif %}
-         <br>
-         {{ todo.datecompleted|date:'M j Y H:i' }}
-       </li>
-     </a>
-       <br>
-      {% endfor %}
-    {% endblock %}
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  {% extends 'base.html' %}
+
+  {% block content %}
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-10">
+      <h1>Completed Todos</h1>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-10">
+      <div class="list-group">
+        {% for todo in todos %}
+        <!--Referencing to the viewtodo page with primary key ID-->
+        <a href="{% url 'removecompletedtodo' todo.id %}"
+        class="list-group-item list-group-item-action{% if todo.important %} list-group-item-danger{% endif %}">
+        <b>{{ todo.title }}</b> - Completed {{ todo.datecompleted|date:'M j Y H:i' }}</a>
+        <br>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+</body>
 </html>

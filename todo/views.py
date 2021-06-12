@@ -74,3 +74,10 @@ def completedtodos(request):
     #Ordering in descending order (latest to not so latest) (using - sign)
     todos = Todo.objects.filter(user = request.user , datecompleted__isnull = False).order_by('-datecompleted')
     return render(request,'todo/completedtodos.html',{'todos':todos})
+
+@login_required
+def removecompletedtodo(request,todo_pk):
+    todo = get_object_or_404(Todo, pk=todo_pk, user=request.user) #accessing those todos only created by the specific user(prevent from someone just try to access todos by changing ID above in URL)
+    if request.method == 'GET':
+        form = TodoForm(instance=todo) #Calling the form with details already in it using instance of above todo
+        return render(request,'todo/removecompletedtodo.html',{'todo':todo,'form':form})
